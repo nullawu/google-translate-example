@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Document
+    link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
+  body
+    .container.py-3
+      .row
+        .col-md-6
+          form(action="/translate" method="POST" enctype="multipart/form-data")
+            .form-group
+              label(for="text") HTML/Plain Text
+              textarea#text.form-control(name="text" rows="12" required)= text || ''
+            .form-group
+              label(for="locale") Target Locale
+              select#locale.custom-select(name="locale" required)
+                - const list = ["zh-CN", "zh-TW", "zh-Hans", "zh-Hant", "ja"]
+                each lang in list
+                  if lang == locale
+                    option(value=lang selected)= lang
+                  else
+                    option(value=lang)= lang
+            .form-group
+              button.btn.btn-block.btn-lg.btn-primary Translate
+        .col-md-6
+          .form
+            .form-group
+              label Result
+              .card
+                article#result.card-body= result || '&nbsp;'
+      .row
+        .col-md-12.pb-5
+          .card
+            .card-header HTML Preview
+            article.card-body
+              != result
+
+
